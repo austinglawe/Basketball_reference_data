@@ -115,4 +115,5 @@ LEFT JOIN all_players
 ON all_Players.player = all_player_awards_update.player
 WHERE player_id != indicator
 
-##It came back that 98 rows were not correct
+##It came back that 98 rows were not correct, but upon further review, I realized it was returning many names that were off by the last two digits meaning, there
+were other people that played in the NBA with the same name, but the SQL results only showed the first result from the all_players table it pulled from.
