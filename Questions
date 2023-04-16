@@ -1,0 +1,52 @@
+How many players have been traded during a season, and how many teams did they play for in each of those seasons, and what seasons were they?
+
+SELECT 	DISTINCT player,
+		player_id,
+		season,
+		COUNT(player) AS COUNts
+from player_season_stats_without_total_tm
+GROUP BY year, player_id, season
+HAVING COUNts > 1
+ORDER BY player, COUNTs
+12,198
+
+SELECT 	DISTINCT player,
+		player_id,
+		COUNT(player) AS COUNts
+from player_season_stats_without_total_tm
+GROUP BY year, player_id
+HAVING COUNts > 1
+ORDER BY player, COUNTs
+3,873
+
+
+SELECT 	DISTINCT player,
+		player_id,
+		count(player)
+FROM
+(SELECT 	DISTINCT player,
+		player_id,
+		season,
+		COUNT(player) AS COUNts
+from player_season_stats_without_total_tm
+GROUP BY year, player_id, season
+HAVING COUNts > 1
+ORDER BY player, COUNTs)
+GROUP BY player, player_id
+3,126
+
+
+
+
+
+
+
+SELECT 	DISTINCT player,
+		player_id,
+		season,
+		COUNT(player) AS COUNts
+FROM player_season_stats_without_total_tm
+GROUP BY year, player_id, season, season_type
+HAVING COUNts > 1
+ORDER BY COUNTs DESC, player
+2,478
