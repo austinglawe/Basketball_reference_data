@@ -67,3 +67,40 @@ ORDER BY COUNTs DESC, player) multis
 GROUP BY player, player_id
 ORDER BY seasons_on_multiple DESC, player
 1,743
+
+
+
+##THERE were many nulls for the indicators of the player awards. I wanted to find those NULLs and join the all_players table to generate those so I can then put
+them into the all_awards table and better populate the data within there.
+
+SELECT all_players.player_id,
+		all_player_awards.player,
+		all_player_awards.indicator
+FROM all_player_awards
+JOIN all_players
+ON all_Players.player = all_player_awards.player
+WHERE indicator IS NULL
+ORDER BY all_player_awards.player
+in excel I had 1881 rows to fill but the results only showed 1876 in SQL so I needed to further investigate.
+
+
+The numbers weren't adding up so I did a Left join instead of a regular join to find the 5 rows I had been missing.
+SELECT all_players.player_id,
+		all_player_awards.player,
+		all_player_awards.indicator
+FROM all_player_awards
+LEFT JOIN all_players
+ON all_Players.player = all_player_awards.player
+WHERE indicator IS NULL AND player_id IS NULL
+ORDER BY all_player_awards.player
+
+Now I ran, 
+SELECT all_players.player_id,
+		all_player_awards.player,
+		all_player_awards.indicator
+FROM all_player_awards
+LEFT JOIN all_players
+ON all_Players.player = all_player_awards.player
+WHERE indicator IS NULL
+ORDER BY all_player_awards.player
+##FROM here I was able to put those into excel and have all the indicators filled in besides the 5 I needed to look up manually.
