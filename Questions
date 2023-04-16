@@ -104,3 +104,4 @@ ON all_Players.player = all_player_awards.player
 WHERE indicator IS NULL
 ORDER BY all_player_awards.player
 ##FROM here I was able to put those into excel and have all the indicators filled in besides the 5 I needed to look up manually.
+Doing this didn't work perfect as Željko Rebrača was placed below Zydrunas Ilguaskas in SQL but I manually reordered that.
