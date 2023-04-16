@@ -1,4 +1,13 @@
-
+SELECT  player_id,
+		player,
+		season_type,
+		SUM(games) AS game,
+		SUM(PTS) AS points,
+		SUM(PTS)/SUM(games) AS PPG
+FROM player_season_stats
+GROUP BY player_id,player,season_type
+HAVING game > 500
+ORDER BY season_type DESC , PPG DESC
 
 
 
