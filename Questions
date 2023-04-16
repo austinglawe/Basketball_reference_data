@@ -40,7 +40,7 @@ GROUP BY player, player_id
 
 
 
-
+## How many times has a player played for multiple teams in a season and how many did they play for?
 SELECT 	DISTINCT player,
 		player_id,
 		season,
@@ -50,3 +50,20 @@ GROUP BY year, player_id, season, season_type
 HAVING COUNts > 1
 ORDER BY COUNTs DESC, player
 2,478
+
+## Of those players, how many total players in total have played for multiple teams and who are they?
+SELECT 	player,
+		player_id,
+		count(*) AS seasons_on_multiple
+FROM
+(SELECT 	DISTINCT player,
+		player_id,
+		season,
+		COUNT(player) AS COUNts
+FROM player_season_stats_without_total_tm
+GROUP BY year, player_id, season, season_type
+HAVING COUNts > 1
+ORDER BY COUNTs DESC, player) multis
+GROUP BY player, player_id
+ORDER BY seasons_on_multiple DESC, player
+1,743
