@@ -117,3 +117,14 @@ WHERE player_id != indicator
 
 ##It came back that 98 rows were not correct, but upon further review, I realized it was returning many names that were off by the last two digits meaning, there
 were other people that played in the NBA with the same name, but the SQL results only showed the first result from the all_players table it pulled from.
+I then used this formula:
+
+SELECT all_players.player_id,
+		all_player_awards_update.player,
+		all_player_awards_update.indicator
+FROM all_player_awards_update
+LEFT JOIN all_players
+ON all_Players.player = all_player_awards_update.player
+WHERE SUBSTR(player_id, 1, LENGTH(player_id)-2) != SUBSTR(indicator, 1, LENGTH(indicator)-2)
+
+With this formula 39 rows were still incorrect. And I can tell, they were all pushed down one row to be messed up.
