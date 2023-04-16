@@ -105,3 +105,14 @@ WHERE indicator IS NULL
 ORDER BY all_player_awards.player
 ##FROM here I was able to put those into excel and have all the indicators filled in besides the 5 I needed to look up manually.
 Doing this didn't work perfect as Željko Rebrača was placed below Zydrunas Ilguaskas in SQL but I manually reordered that.
+I plugged this into SQL to check it worked, using this formula:
+
+SELECT all_players.player_id,
+		all_player_awards_update.player,
+		all_player_awards_update.indicator
+FROM all_player_awards_update
+LEFT JOIN all_players
+ON all_Players.player = all_player_awards_update.player
+WHERE player_id != indicator
+
+##It came back that 98 rows were not correct
