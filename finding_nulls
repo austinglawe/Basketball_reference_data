@@ -1,15 +1,15 @@
-SELECT 	new_new.player,
-		    all_player_awards.Player AS players
+SELECT 	  new_new.player,	
+	  all_player_awards.Player AS players
 FROM
-        (SELECT 	player,
-		              count
-          FROM
-                (SELECT   player,
-			                    count(player) AS count
-                 FROM		all_players
-                 GROUP BY 	player
-                 ORDER BY	count DESC) AS new
-         WHERE count > 1) new_new
-JOIN all_player_awards
-ON all_player_awards.player = new_new.player
-GROUP BY new_new.player
+        	(SELECT player,
+	         	count
+         	 FROM
+               		(SELECT   	player,
+				  	count(player) AS count
+                 	FROM		all_players
+                 	GROUP BY 	player
+                 	ORDER BY	count DESC) AS new
+            	 WHERE count > 1) new_new
+JOIN 	   all_player_awards
+ON 	   all_player_awards.player = new_new.player
+GROUP BY   new_new.player
