@@ -1,15 +1,53 @@
+
+
+
+
+
+
+
 SELECT 	  new_new.player,	
 	  all_player_awards.Player AS players
 FROM
         	(SELECT player,
 	         	count
          	 FROM
-               		(SELECT   	player,
-				  	count(player) AS count
-                 	FROM		all_players
-                 	GROUP BY 	player
-                 	ORDER BY	count DESC) AS new
+               		(SELECT     player,
+				    count(player) AS count
+                 	FROM	    all_players
+                 	GROUP BY    player
+                 	ORDER BY    count DESC) AS new
             	 WHERE count > 1) new_new
 JOIN 	   all_player_awards
 ON 	   all_player_awards.player = new_new.player
 GROUP BY   new_new.player
+
+
+
+
+
+
+
+SELECT 	duplicates.player AS duplicates,
+	all_players.player AS needs_work,
+	all_players.player_id AS id,
+	all_players.played_from AS beginning,
+	all_players.played_to AS end
+FROM	all_players
+JOIN
+	(SELECT new_new.player AS player
+	FROM
+        	(SELECT player,
+	         	count
+         	 FROM
+               		(SELECT     player,
+				    count(player) AS count
+                 	FROM	    all_players
+                 	GROUP BY    player
+                 	ORDER BY    count DESC) AS new
+            	 WHERE count > 1) new_new
+	JOIN 	   all_player_awards
+	ON 	   all_player_awards.player = new_new.player
+	GROUP BY   new_new.player) AS duplicates
+ON duplicates.player = all_players.player
+ORDER BY duplicates
+
