@@ -129,3 +129,18 @@ WHERE SUBSTR(player_id, 1, LENGTH(player_id)-2) != SUBSTR(indicator, 1, LENGTH(i
 
 With this formula 39 rows were still incorrect. And I can tell, they were all pushed down one row to be messed up.
 After manually going through, I checked again and missed 3, I then went back over them and then checked again and completed this successfully.
+
+
+How many All-NBA teams has LeBron James made. Which teams, and how many times? And how many in total?
+
+SELECT 	Player,
+		indicator,
+		Full_award AS award,
+		COUNT(Full_award) number
+FROM
+(SELECT DISTINCT *
+FROM all_player_awards_update3
+WHERE Full_award LIKE "%All-NBA%")
+GROUP BY Player, indicator, Full_award
+HAVING Player = "LeBron James"
+ORDER BY Player, award
