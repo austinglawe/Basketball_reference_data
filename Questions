@@ -215,3 +215,42 @@ INNER JOIN player_season_stats_without_total_tm psswt
   AND apa.player = psswt.player 
   AND psswt.player_id = apa.indicator
 WHERE psswt.season_type <> "Playoffs"
+
+
+
+
+SELECT *
+FROM
+(SELECT 	season,
+		season_type,
+		team,
+		SUM(FGM) AS FGM,
+		SUM(FGA) AS FGA,
+	    ROUND(SUM(FGM)*100.0/SUM(FGA),2) AS FG_percent,
+		SUM(three_made) AS three_made,
+		SUM(three_att) AS three_att,
+		ROUND(SUM(three_made)*100.0/SUM(three_att),2) AS three_percent,
+		SUM(two_made) AS two_made,
+		SUM(two_att) AS two_att,
+		ROUND(SUM(two_made)*100.0/SUM(two_att),2) AS two_percent,
+		SUM(FTM) AS FTM,
+		SUM(FTA) AS FTA,
+		ROUND(SUM(FTM)*100.0/SUM(FTA),2) AS FT_percent,
+		SUM(ORB) AS OREB,
+		SUM(DRB) AS DREB,
+		SUM(TRB) AS TREB,
+		SUM(AST) AS AST,
+		SUM(STL) AS STL,
+		SUM(BLK) AS BLK,
+		SUM(TOV) AS TOV,
+		SUM(PF) AS PF,
+		SUM(PTS) AS points,
+		SUM(dunks_made) AS dunk_made,
+		SUM(dunk_att) AS dunk_att,
+		ROUND(SUM(dunks_made)*100.0/SUM(dunk_att),2) AS dunk_percent
+FROM player_season_stats_without_total_tm AS stats
+WHERE stats.year > 1970
+GROUP BY season, team, season_type
+ORDER BY season DESC, season_type DESC) sub
+WHERE season_type != "Playoffs"
+ORDER BY TREB DESC
