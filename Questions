@@ -183,3 +183,14 @@ GROUP BY Player, indicator, Full_award
 ORDER BY Player, award)
 GROUP BY player, indicator
 ORDER BY number DESC
+
+
+##Finding all NBA/BAA players with any minute or stat in an NBA game
+
+SELECT 	COUNT(stats.player) AS seasons,
+		all_players.*
+FROM all_players
+JOIN player_season_stats_without_total_tm AS stats
+ON stats.player_id = all_players.player_id
+GROUP BY all_players.player_id
+ORDER BY seasons
