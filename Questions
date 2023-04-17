@@ -144,3 +144,24 @@ WHERE Full_award LIKE "%All-NBA%")
 GROUP BY Player, indicator, Full_award
 HAVING Player = "LeBron James"
 ORDER BY Player, award
+
+
+
+##How many players have ever made an All-NBA team (1st, 2nd, or 3rd Team). How many have they made? Then who was been on the most?
+
+SELECT  Player,
+		indicator,
+		SUM(number) AS number
+FROM
+(SELECT 	Player,
+		indicator,
+		Full_award AS award,
+		COUNT(Full_award) number
+FROM
+(SELECT DISTINCT *
+FROM all_player_awards_update3
+WHERE Full_award LIKE "%All-NBA%")
+GROUP BY Player, indicator, Full_award
+ORDER BY Player, award)
+GROUP BY player, indicator
+ORDER BY number DESC
