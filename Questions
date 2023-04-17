@@ -194,3 +194,15 @@ JOIN player_season_stats_without_total_tm AS stats
 ON stats.player_id = all_players.player_id
 GROUP BY all_players.player_id
 ORDER BY seasons
+
+
+###how can i connect sql tables where all_player_awards_update3.indicator is equal to player_season_stats_without_total_tm.player_id?
+I want to show And all the columns in the all_player_awards_update3 table and all the columns within the player_season_stats_without_total_tm table. 
+How can I join these tables together to only show the values that are equal from all_player_awards_update3.season = player_season_stats_without_total_tm.season , 
+all_player_awards_update3.player = player_season_stats_without_total_tm. , and player_season_stats_without_total_tm.player_id = all_player_awards_update3.indicator
+
+SELECT apa.*, psswt.*
+FROM all_player_awards_update3 apa
+JOIN player_season_stats_without_total_tm psswt ON apa.season = psswt.season
+AND apa.player = psswt.player
+AND psswt.player_id = apa.indicator;
