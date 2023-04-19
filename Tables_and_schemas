@@ -1,0 +1,24 @@
+----------Tables ----------------
+## all_players (all players to play in an NBA or BAA game)
+## all_awards (NBA, BAA awards)
+## all_player_season_stats (all season stats of each player)
+
+
+## all_games (every game played in the NBA or BAA - regular season, playoffs, Exhibitions : play-in, all-star games, and more)
+## all_player_game_stats (every game box score for each player)
+## all_team_season_stats
+## all_player_
+## all_team_rosters
+## all_draft_picks
+## all_team_history
+## all_stat_history
+## all_play_by_play_logs
+## all_links
+## all_coaches
+## all_team_rosters
+
+
+-----------Schemas within tables ----------
+
+## all_players
+   ####
